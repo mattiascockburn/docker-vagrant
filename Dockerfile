@@ -1,5 +1,5 @@
 FROM centos:7
-LABEL maintainer Philipp Schmitt <philipp@schmitt.co>
+LABEL maintainer Mattias Giese <giese@b1-systems.de>
 
 ARG vagrant_version
 ARG userid
@@ -16,7 +16,8 @@ RUN yum makecache ;\
         make gcc gcc-c++ gem ruby-devel libvirt-devel openssh-clients rsync && \
     yum -y install \
       https://releases.hashicorp.com/vagrant/${vagrant_version}/vagrant_${vagrant_version}_x86_64.rpm && \
-    yum clean all 
+    yum clean all ;\
+    rm -rf /var/tmp/*
 
 RUN useradd -m -d ${homedir} -u ${userid} user
 USER user
