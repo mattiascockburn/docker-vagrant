@@ -1,6 +1,8 @@
 # Vagrant docker image
 
-https://hub.docker.com/r/pschmitt/docker-vagrant/
+Upstream repo on Docker Hub: https://hub.docker.com/r/pschmitt/docker-vagrant/
+
+I won't push images to Docker Hub, you'll have to build this stuff yourself.
 
 ## Plugins
 
@@ -79,6 +81,20 @@ $ docker run -ti --rm -v "${HOME}/.vagrant.d/boxes:/home/user/.vagrant.d/boxes" 
 [vagrant@localhost ~]$ # Whoooozaaaaaa
 [vagrant@localhost ~]$ logout
 Connection to 192.168.121.205 closed.
+```
+
+A handy function for bash:
+
+```bash
+dvagrant() {
+  docker run -ti --rm \
+    -v "${HOME}/.vagrant.d/boxes:/home/user/.vagrant.d/boxes" \
+    -v /var/run/libvirt/libvirt-sock:/var/run/libvirt/libvirt-sock \
+    -v "$(pwd):/data"  \
+    --name vagrant \
+    --net=host \
+    vagrant:1.9.5 "$@"
+}
 ```
 
 ## Limitations
